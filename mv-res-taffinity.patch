@@ -1,0 +1,11 @@
+diff -Nurp makes/Make.ttune makes-wenj/Make.ttune
+--- a/makes/Make.ttune	2019-06-25 17:57:01.420000000 +0800
++++ b/makes-wenj/Make.ttune	2019-06-26 10:33:29.676000000 +0800
+@@ -49,7 +49,6 @@ IRun_nthr : IRun_aff xprobe_nthr
+ 	mv res/atlas_pthreads.h $(INCAdir)/atlas_pthreads.h
+ ITune_aff : IRun_nthr xtune_aff
+ 	./xtune_aff -o res/atlas_taffinity.h
+-	mv res/atlas_taffinity.h $(INCAdir)/.
+ tlib : 
+ 	cd $(BLDdir)/src/threads ; $(MAKE)
+ xprobe_aff : probe_aff.o atlconf_misc.o

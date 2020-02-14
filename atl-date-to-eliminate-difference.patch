@@ -1,0 +1,39 @@
+--- a/tune/sysinfo/emit_buildinfo.c	2019-06-25 16:32:51.364000000 +0800
++++ b/tune/sysinfo/emit_buildinfo.c	2019-06-25 16:32:41.996000000 +0800
+@@ -186,24 +186,36 @@ void PrintInstInfo(FILE *fpout)
+    fprintf(fpout, "#define ATL_F2CDEFS \"%s\"\n", F2CDEFS);
+    fprintf(fpout, "#define ATL_ARCHDEFS \"%s\"\n", ARCHDEFS);
+    fprintf(fpout, "#define ATL_DKCFLAGS \"%s\"\n", DKCFLAGS);
++   strcpy(DKC, "/usr/bin/gcc");
+    fprintf(fpout, "#define ATL_DKC \"%s\"\n", DKC);
+    fprintf(fpout, "#define ATL_SKCFLAGS \"%s\"\n", SKCFLAGS);
++   strcpy(SKC, "/usr/bin/gcc");
+    fprintf(fpout, "#define ATL_SKC \"%s\"\n", SKC);
+    fprintf(fpout, "#define ATL_DMCFLAGS \"%s\"\n", DMCFLAGS);
++   strcpy(DMC, "/usr/bin/gcc");
+    fprintf(fpout, "#define ATL_DMC \"%s\"\n", DMC);
+    fprintf(fpout, "#define ATL_SMCFLAGS \"%s\"\n", SMCFLAGS);
++   strcpy(SMC, "/usr/bin/gcc");
+    fprintf(fpout, "#define ATL_SMC \"%s\"\n", SMC);
+    fprintf(fpout, "#define ATL_ICCFLAGS \"%s\"\n", ICCFLAGS);
++   strcpy(ICC, "/usr/bin/gcc");
+    fprintf(fpout, "#define ATL_ICC \"%s\"\n", ICC);
+    fprintf(fpout, "#define ATL_F77FLAGS \"%s\"\n", F77FLAGS);
+    fprintf(fpout, "#define ATL_F77 \"%s\"\n", F77);
++   strcpy(DKCVERS, "gcc (GCC) 7.3.0");
++   strcpy(SKCVERS, "gcc (GCC) 7.3.0");
++   strcpy(DMCVERS, "gcc (GCC) 7.3.0");
++   strcpy(SMCVERS, "gcc (GCC) 7.3.0");
++   strcpy(ICCVERS, "gcc (GCC) 7.3.0");
+    fprintf(fpout, "#define ATL_DKCVERS \"%s\"\n", DKCVERS);
+    fprintf(fpout, "#define ATL_SKCVERS \"%s\"\n", SKCVERS);
+    fprintf(fpout, "#define ATL_DMCVERS \"%s\"\n", DMCVERS);
+    fprintf(fpout, "#define ATL_SMCVERS \"%s\"\n", SMCVERS);
+    fprintf(fpout, "#define ATL_ICCVERS \"%s\"\n", ICCVERS);
+    fprintf(fpout, "#define ATL_F77VERS \"%s\"\n", F77VERS);
++   strcpy(SYS, "Linux localhost.localdomain 4.19.36-vhulk1906.3.0.h309 #1 SMP Mon Apr 1 00:00:00 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux");
+    fprintf(fpout, "#define ATL_SYSINFO \"%s\"\n", SYS);
++   strcpy(DATE, "Tue Jun 25 11:33:05 CST 2019");
+    fprintf(fpout, "#define ATL_DATE    \"%s\"\n", DATE);
+    fprintf(fpout, "#define ATL_UNAM    \"%s\"\n", UNAM);
+    fprintf(fpout, "#define ATL_VERS    \"3.10.3\"\n");

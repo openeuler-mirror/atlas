@@ -1,0 +1,11 @@
+diff -Nur ATLAS_orig/CONFIG/src/atlconf_misc.c ATLAS/CONFIG/src/atlconf_misc.c
+--- ATLAS_orig/CONFIG/src/atlconf_misc.c	2016-07-28 19:43:00.000000000 +0000
++++ ATLAS/CONFIG/src/atlconf_misc.c	2019-11-14 09:32:23.565839810 +0000
+@@ -845,6 +845,7 @@
+  */
+       if (strstr(res, "(GCC)")  || strstr(res, " GCC ") ||
+           strstr(res, "gcc-mp") || strstr(res, "(GCC ") ||
++	  strstr(res, "(HCC)")  || strstr(res, " HCC ") ||strstr(res, "(HCC ") ||
+           strstr(res, "GNU Fortran") ||
+           (res[0] == 'g' && res[1] == 'c' && res[2] == 'c' &&
+            (res[3] == ' ' || res[3] == '-'))

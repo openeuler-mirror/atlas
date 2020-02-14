@@ -1,0 +1,143 @@
+From 17e99a7a3b6f6728f8cd79a70319c333442f3a8f Mon Sep 17 00:00:00 2001
+From: wangjia <wangjia55@huawei.com>
+Date: Sun, 28 Apr 2019 23:05:02 +0800
+Subject: [PATCH] sed tune macro value to repair binary diffence
+
+---
+ makes/Make.r1tune  | 16 ++++++++--------
+ makes/Make.sysinfo | 26 +++++++++++++++++++++-----
+ makes/Make.ttune   |  4 +++-
+ 3 files changed, 32 insertions(+), 14 deletions(-)
+
+diff --git a/makes/Make.r1tune b/makes/Make.r1tune
+index f6cee2d..ca04aa0 100644
+--- a/makes/Make.r1tune
++++ b/makes/Make.r1tune
+@@ -101,10 +101,10 @@ snxtune :
+ 	cd $(GR1dir) ; make slib
+ 	$(MAKE) xss1nxtune
+ 	$(ATLRUN) $(R1Tdir) xss1nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_ssyrNX.h
++                  -o $(INCAdir)/atlas_ssyrNX.h && sed -i '/#define ATL_S1NX/c\   #define ATL_S1NX 1920' $(INCAdir)/atlas_ssyrNX.h
+ 	$(MAKE) xss2nxtune
+ 	$(ATLRUN) $(R1Tdir) xss2nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_ssyr2NX.h
++                  -o $(INCAdir)/atlas_ssyr2NX.h && sed -i '/#define ATL_S2NX/c\   #define ATL_S2NX 488' $(INCAdir)/atlas_ssyr2NX.h
+ 	cd $(L2Bdir) ; make slib
+ #
+ # This target is for directly timing a call to the kernel, w/o cache flushing
+@@ -352,10 +352,10 @@ dnxtune :
+ 	cd $(GR1dir) ; make dlib
+ 	$(MAKE) xds1nxtune
+ 	$(ATLRUN) $(R1Tdir) xds1nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_dsyrNX.h
++                  -o $(INCAdir)/atlas_dsyrNX.h && sed -i '/#define ATL_S1NX/c\   #define ATL_S1NX 1992' $(INCAdir)/atlas_dsyrNX.h
+ 	$(MAKE) xds2nxtune
+ 	$(ATLRUN) $(R1Tdir) xds2nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_dsyr2NX.h
++                  -o $(INCAdir)/atlas_dsyr2NX.h && sed -i '/#define ATL_S2NX/c\   #define ATL_S2NX 992' $(INCAdir)/atlas_dsyr2NX.h
+ 	cd $(L2Bdir) ; make dlib
+ #
+ # This target is for directly timing a call to the kernel, w/o cache flushing
+@@ -611,10 +611,10 @@ cnxtune :
+ 	cd $(GR1dir) ; make clib
+ 	$(MAKE) xcs1nxtune
+ 	$(ATLRUN) $(R1Tdir) xcs1nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_csyrNX.h
++                  -o $(INCAdir)/atlas_csyrNX.h && sed -i '/#define ATL_S1NX/c\   #define ATL_S1NX 120' $(INCAdir)/atlas_csyrNX.h
+ 	$(MAKE) xcs2nxtune
+ 	$(ATLRUN) $(R1Tdir) xcs2nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_csyr2NX.h
++                  -o $(INCAdir)/atlas_csyr2NX.h && sed -i '/#define ATL_S2NX/c\   #define ATL_S2NX 496' $(INCAdir)/atlas_csyr2NX.h
+ 	cd $(L2Bdir) ; make clib
+ #
+ # This target is for directly timing a call to the kernel, w/o cache flushing
+@@ -888,10 +888,10 @@ znxtune :
+ 	cd $(GR1dir) ; make zlib
+ 	$(MAKE) xzs1nxtune
+ 	$(ATLRUN) $(R1Tdir) xzs1nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_zsyrNX.h
++                  -o $(INCAdir)/atlas_zsyrNX.h && sed -i '/#define ATL_S1NX/c\   #define ATL_S1NX 120' $(INCAdir)/atlas_zsyrNX.h
+ 	$(MAKE) xzs2nxtune
+ 	$(ATLRUN) $(R1Tdir) xzs2nxtune -U u -n 2000 -r 1 -s 10 -C 0 \
+-                  -o $(INCAdir)/atlas_zsyr2NX.h
++                  -o $(INCAdir)/atlas_zsyr2NX.h && sed -i '/#define ATL_S2NX/c\   #define ATL_S2NX 496' $(INCAdir)/atlas_zsyr2NX.h
+ 	cd $(L2Bdir) ; make zlib
+ #
+ # This target is for directly timing a call to the kernel, w/o cache flushing
+diff --git a/makes/Make.sysinfo b/makes/Make.sysinfo
+index 2b7dfdc..0f529d9 100644
+--- a/makes/Make.sysinfo
++++ b/makes/Make.sysinfo
+@@ -22,7 +22,11 @@ $(INCAdir)/atlas_type.h:
+ sRunSysSum : $(INCAdir)/atlas_ssysinfo.h
+ 
+ $(INCAdir)/atlas_ssysinfo.h : xsyssum $(ATLFWAIT)
+-	$(SYSdir)/xsyssum s $(INCAdir)/atlas_ssysinfo.h
++	$(SYSdir)/xsyssum s $(INCAdir)/atlas_ssysinfo.h && sed -i '/#define ATL_nkflop/c\#define ATL_nkflop 2076913' $(INCAdir)/atlas_ssysinfo.h \
++        && sed -i '/#define ATL_L1elts/c\#define ATL_L1elts 4096' $(INCAdir)/atlas_ssysinfo.h \
++        && sed -i '/#define ATL_fplat/c\#define ATL_fplat  6' $(INCAdir)/atlas_ssysinfo.h \
++        && sed -i '/#define ATL_lbnreg/c\#define ATL_lbnreg 32' $(INCAdir)/atlas_ssysinfo.h \
++        && sed -i '/#define ATL_mmnreg/c\#define ATL_mmnreg 32' $(INCAdir)/atlas_ssysinfo.h
+ 	$(ATLFWAIT) -f $(INCAdir)/atlas_ssysinfo.h
+ 
+ res/sMULADD : 
+@@ -31,16 +35,24 @@ res/sMULADD :
+ dRunSysSum : $(INCAdir)/atlas_dsysinfo.h
+ 
+ $(INCAdir)/atlas_dsysinfo.h : xsyssum $(ATLFWAIT)
+-	$(SYSdir)/xsyssum d $(INCAdir)/atlas_dsysinfo.h
++	$(SYSdir)/xsyssum d $(INCAdir)/atlas_dsysinfo.h && sed -i '/#define ATL_nkflop/c\#define ATL_nkflop 3129086' $(INCAdir)/atlas_dsysinfo.h \
++        && sed -i '/#define ATL_L1elts/c\#define ATL_L1elts 2048' $(INCAdir)/atlas_dsysinfo.h \
++        && sed -i '/#define ATL_fplat/c\#define ATL_fplat  7' $(INCAdir)/atlas_dsysinfo.h \
++        && sed -i '/#define ATL_lbnreg/c\#define ATL_lbnreg 16' $(INCAdir)/atlas_dsysinfo.h \
++        && sed -i '/#define ATL_mmnreg/c\#define ATL_mmnreg 16' $(INCAdir)/atlas_dsysinfo.h
+ 	$(ATLFWAIT) -f $(INCAdir)/atlas_dsysinfo.h
+ 
+ res/dMULADD : 
+-	$(MAKE) RunMulAdd pre=d
++	$(MAKE) RunMulAdd pre=d 
+ 
+ cRunSysSum : $(INCAdir)/atlas_csysinfo.h
+ 
+ $(INCAdir)/atlas_csysinfo.h : xsyssum $(ATLFWAIT)
+-	$(SYSdir)/xsyssum c $(INCAdir)/atlas_csysinfo.h
++	$(SYSdir)/xsyssum c $(INCAdir)/atlas_csysinfo.h && sed -i '/#define ATL_nkflop/c\#define ATL_nkflop 2076913' $(INCAdir)/atlas_csysinfo.h \
++        && sed -i '/#define ATL_L1elts/c\#define ATL_L1elts 1024' $(INCAdir)/atlas_csysinfo.h \
++        && sed -i '/#define ATL_fplat/c\#define ATL_fplat  6' $(INCAdir)/atlas_csysinfo.h \
++        && sed -i '/#define ATL_lbnreg/c\#define ATL_lbnreg 32' $(INCAdir)/atlas_csysinfo.h \
++        && sed -i '/#define ATL_mmnreg/c\#define ATL_mmnreg 32' $(INCAdir)/atlas_csysinfo.h
+ 	$(ATLFWAIT) -f $(INCAdir)/atlas_csysinfo.h
+ 
+ res/cMULADD : 
+@@ -49,7 +61,11 @@ res/cMULADD :
+ zRunSysSum : $(INCAdir)/atlas_zsysinfo.h
+ 
+ $(INCAdir)/atlas_zsysinfo.h : xsyssum $(ATLFWAIT)
+-	$(SYSdir)/xsyssum z $(INCAdir)/atlas_zsysinfo.h
++	$(SYSdir)/xsyssum z $(INCAdir)/atlas_zsysinfo.h && sed -i '/#define ATL_nkflop/c\#define ATL_nkflop 3129086' $(INCAdir)/atlas_zsysinfo.h \
++        && sed -i '/#define ATL_L1elts/c\#define ATL_L1elts 2048' $(INCAdir)/atlas_zsysinfo.h \
++        && sed -i '/#define ATL_fplat/c\#define ATL_fplat  7' $(INCAdir)/atlas_zsysinfo.h \
++        && sed -i '/#define ATL_lbnreg/c\#define ATL_lbnreg 16' $(INCAdir)/atlas_zsysinfo.h \
++        && sed -i '/#define ATL_mmnreg/c\#define ATL_mmnreg 16' $(INCAdir)/atlas_zsysinfo.h
+ 	$(ATLFWAIT) -f $(INCAdir)/atlas_zsysinfo.h
+ 
+ res/zMULADD : 
+diff --git a/makes/Make.ttune b/makes/Make.ttune
+index 0604dab..bfe06a8 100644
+--- a/makes/Make.ttune
++++ b/makes/Make.ttune
+@@ -39,7 +39,9 @@ MakeThreadSum :
+ 	echo "#endif" >> $(sumf)
+ IRun_aff : xprobe_aff force_build
+ 	- rm res/probe.out
+-	./xprobe_aff -v 1 -o $(INCAdir)/atlas_taffinity.h $(TIDLIST)
++	./xprobe_aff -v 1 -o $(INCAdir)/atlas_taffinity.h $(TIDLIST) && sed -i '/#define ATL_AFF_NUMID/c\#define ATL_AFF_NUMID 32' $(INCAdir)/atlas_taffinity.h \
++        && sed -i '/#define ATL_RANK_IS_PROCESSORID/c\#define ATL_RANK_IS_PROCESSORID 1 /* good IDs [0,31] */' $(INCAdir)/atlas_taffinity.h \
++        && sed -i '/Generated by/c\/* Generated by /home/abuild/rpmbuild/BUILD/ATLAS/aarch64_base/..//CONFIG/src/probe_aff.c */' $(INCAdir)/atlas_taffinity.h
+ 
+ IRun_nthr : IRun_aff xprobe_nthr
+ 	rm -f $(INCAdir)/atlas_pthreads.h
+-- 
+2.19.1
+
