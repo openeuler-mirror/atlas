@@ -1,0 +1,10 @@
+--- a/CONFIG/src/probe_aff.c	2019-06-24 14:12:46.864000000 +0800
++++ b/CONFIG/src/probe_aff.c	2019-06-24 16:19:33.252000000 +0800
+@@ -447,6 +447,7 @@ int main(int nargs, char **args)
+    GetFlags(nargs, args, &verb, &OS, &maxT, &IDs, &OMP, &AntThr,
+             &outfile, &targ);
+    iaff = ProbeAffinity(verb, targ, OS, OMP);
++   iaff = IA_SETAFFNP;
+    if (IDs)
+    {
+       int *ids;
