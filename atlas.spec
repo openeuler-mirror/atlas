@@ -157,7 +157,7 @@ for type in %{types}; do
     fi
     mkdir -p %{_arch}_${type}
     pushd %{_arch}_${type}
-    ../configure  %{mode} $thread_options $arg_options -D c -DWALL -Fa alg '%{flags} -g -Wa,--noexecstack -fPIC ${RPM_LD_FLAGS}'\
+    ../configure  %{mode} $thread_options $arg_options -D c -DWALL -Fa alg '%{flags} -g -Wa,--noexecstack -fPIC ${RPM_LD_FLAGS} -fstack-protector-all -Wl,-z,now'\
     --prefix=%{buildroot}%{_prefix}            \
     --incdir=%{buildroot}%{_includedir}        \
     --libdir=%{buildroot}%{_libdir}/${libname}
