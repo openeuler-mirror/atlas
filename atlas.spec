@@ -5,7 +5,7 @@
 #Basic Information
 Name:           atlas
 Version:        3.10.3
-Release:        8 
+Release:        9
 Summary:        Automatically Tuned Linear Algebra Software
 License:        BSD
 URL:            http://math-atlas.sourceforge.net/
@@ -282,5 +282,8 @@ fi
 %endif
 
 %changelog
+* Wed Mar 18 2020 lihao <lihao129@huawei.com> - 3.10.3-9
+- Enable BIND_NOW and stack protector
+
 * Fri Nov 15 2019 openEuler Buildteam <buildteam@openeuler.org> - 3.10.3-8
 - package init
