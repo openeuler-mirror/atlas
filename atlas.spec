@@ -5,7 +5,7 @@
 #Basic Information
 Name:           atlas
 Version:        3.10.3
-Release:        9
+Release:        10
 Summary:        Automatically Tuned Linear Algebra Software
 License:        BSD
 URL:            http://math-atlas.sourceforge.net/
@@ -18,15 +18,16 @@ Source5:        IBMz964.tar.bz2
 Source6:        ARMv732NEON.tar.bz2
 Source7:        IBMz1264.tar.bz2
 Source8:        ARMa732.tar.bz2
-Patch0:         atlas-melf.patch
-Patch1:         atlas-shared_libraries.patch
-Patch2:         atlas-genparse.patch
-Patch3:         atlas.3.10.1-unbundle.patch
-Patch9000:      0001-sed-tune-macro-value-to-repair-binary-diffence.patch
-Patch9001:      atl-date-to-eliminate-difference.patch
-Patch9002:      ret-iaff-to-eliminate-difference.patch
-Patch9003:      mv-res-taffinity.patch
-Patch9004:      atlas-compatible-with-hcc.patch
+Patch0000:      atlas-melf.patch
+Patch0001:      atlas-shared_libraries.patch
+Patch0002:      atlas-genparse.patch
+Patch0003:      atlas.3.10.1-unbundle.patch
+Patch0004:      0001-sed-tune-macro-value-to-repair-binary-diffence.patch
+Patch0005:      atl-date-to-eliminate-difference.patch
+Patch0006:      ret-iaff-to-eliminate-difference.patch
+Patch0007:      mv-res-taffinity.patch
+Patch0008:      atlas-compatible-with-hcc.patch
+Patch0009:      0001-fix-gcc-version-check.patch
 
 #Dependency
 BuildRequires:  gcc-gfortran, lapack-devel, gcc
@@ -282,6 +283,9 @@ fi
 %endif
 
 %changelog
+* Mon Sep 14 2020 lingsheng <lingsheng@huawei.com> - 3.10.3-10
+- Fix gcc version check
+
 * Wed Mar 18 2020 lihao <lihao129@huawei.com> - 3.10.3-9
 - Enable BIND_NOW and stack protector
 
