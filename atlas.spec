@@ -5,7 +5,7 @@
 #Basic Information
 Name:           atlas
 Version:        3.10.3
-Release:        9
+Release:        10
 Summary:        Automatically Tuned Linear Algebra Software
 License:        BSD
 URL:            http://math-atlas.sourceforge.net/
@@ -164,6 +164,7 @@ for type in %{types}; do
 
     #matches both SLAPACK and SSLAPACK
     sed -i "s|SLAPACKlib.*|SLAPACKlib = ${p}/liblapack_pic_pruned.a|" Make.inc
+    %{?_smp_mflags:sed -i "s/\$(MAKE) -j 2/\$(MAKE) %{_smp_mflags}/g" Make.inc}
     cat Make.inc
     make build
     cd lib
@@ -282,6 +283,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 26 2021 maminjie <maminjie1@huawei.com> - 3.10.3-10
+- Optimize parallel compilation
+
 * Wed Mar 18 2020 lihao <lihao129@huawei.com> - 3.10.3-9
 - Enable BIND_NOW and stack protector
 
