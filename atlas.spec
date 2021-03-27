@@ -5,7 +5,7 @@
 #Basic Information
 Name:           atlas
 Version:        3.10.3
-Release:        10
+Release:        11
 Summary:        Automatically Tuned Linear Algebra Software
 License:        BSD
 URL:            http://math-atlas.sourceforge.net/
@@ -28,6 +28,7 @@ Patch0006:      ret-iaff-to-eliminate-difference.patch
 Patch0007:      mv-res-taffinity.patch
 Patch0008:      atlas-compatible-with-hcc.patch
 Patch0009:      0001-fix-gcc-version-check.patch
+Patch0010:	atlas-riscv64-port.patch
 
 #Dependency
 BuildRequires:  gcc-gfortran, lapack-devel, gcc
@@ -140,6 +141,11 @@ p=$(pwd)
 %ifarch aarch64
 %define flags %{nil}
 %define base_options "-A ARM64a53 -V 1"
+%endif
+
+%ifarch riscv64
+%define flags %{nil}
+%define base_options "-A RISCV64 -V 1"
 %endif
 
 for type in %{types}; do
@@ -283,6 +289,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 13 2020 yangyanchao <yangyanchao6@huawei.com> - 3.10.3-11
+- Add a machine type to Support riscv
+
 * Mon Sep 14 2020 lingsheng <lingsheng@huawei.com> - 3.10.3-10
 - Fix gcc version check
 
